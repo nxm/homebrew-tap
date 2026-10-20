@@ -1,6 +1,6 @@
 cask "aqara-doorbell" do
-  version "0.1.0"
-  sha256 "7bdc27e0a643d57afb7e650423ad3159c499a566d7b6b01dd0cc12db82944903"
+  version "0.1.1"
+  sha256 "37bfb29ee42d5d11891a74d4e6b27c2164aceda88164badc7e15cb421879602a"
 
   url "https://github.com/nxm/aqara-doorbell/releases/download/v#{version}/AqaraDoorbell-#{version}.zip"
   name "Aqara Doorbell"
