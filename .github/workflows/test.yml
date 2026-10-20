@@ -5,12 +5,20 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to test (the bump job passes main, which it just pushed)
+        type: string
+        default: ""
 
 jobs:
   aqara-doorbell:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}   # empty outside workflow_call: the event's own commit
       - name: Tap this checkout
         run: brew tap nxm/tap "$GITHUB_WORKSPACE"
       - name: Style
