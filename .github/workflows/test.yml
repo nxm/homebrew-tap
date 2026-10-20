@@ -10,7 +10,7 @@ jobs:
   aqara-doorbell:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Tap this checkout
         run: brew tap nxm/tap "$GITHUB_WORKSPACE"
       - name: Style
