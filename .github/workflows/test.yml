@@ -1,0 +1,32 @@
+name: Test casks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  aqara-doorbell:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v5
+      - name: Tap this checkout
+        run: brew tap nxm/tap "$GITHUB_WORKSPACE"
+      - name: Style
+        run: brew style --cask nxm/tap/aqara-doorbell
+      - name: Audit
+        run: brew audit --cask --online nxm/tap/aqara-doorbell
+      - name: Install
+        run: brew install --cask nxm/tap/aqara-doorbell
+      - name: Check the app
+        run: |
+          set -euo pipefail
+          APP=/Applications/AqaraDoorbell.app
+          test -x "$APP/Contents/MacOS/AqaraDoorbell"
+          lipo -archs "$APP/Contents/MacOS/AqaraDoorbell"
+          if xattr -p com.apple.quarantine "$APP" 2>/dev/null; then
+            echo "quarantine flag still set"; exit 1
+          fi
+      - name: Uninstall
+        run: brew uninstall --cask nxm/tap/aqara-doorbell
