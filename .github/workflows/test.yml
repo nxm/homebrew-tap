@@ -1,9 +1,13 @@
 name: Test casks
 
 on:
+  # Only when a cask or this test changes: every run installs the app and
+  # would otherwise inflate the release download count.
   push:
     branches: [main]
+    paths: ["Casks/**", ".github/workflows/test.yml"]
   pull_request:
+    paths: ["Casks/**", ".github/workflows/test.yml"]
   workflow_dispatch:
   workflow_call:
     inputs:
