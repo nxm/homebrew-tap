@@ -15,6 +15,10 @@ on:
 jobs:
   aqara-doorbell:
     runs-on: macos-15
+    env:
+      # Authenticated GitHub API calls: the shared runner IP hits the
+      # anonymous rate limit during `brew audit --online`.
+      HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v7
         with:
